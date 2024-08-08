@@ -6,7 +6,7 @@ Kong API Gateway is a powerful and flexible open-source tool designed to manage,
 
 1. [Introduction](#introduction)
 2. [Prerequisites](#prerequisites)
-3. [Installation](#installation)
+3. [Adding Code in Your Yaml File](#adding-code-in-your-yaml-file)
 4. [Configuration](#configuration)
 5. [Adding Services and Routes](#adding-services-and-routes)
 6. [Securing APIs](#securing-apis)
@@ -27,44 +27,6 @@ Before you begin, ensure you have the following:
 - Docker installed on your machine.
 - Basic knowledge of API concepts and Docker.
 - Access to your API services and routes.
-
-# Kong API Gateway Integration
-
-This repository provides a configuration for integrating Kong API Gateway using Docker Compose. The setup includes services, migrations, and necessary configurations to manage API traffic efficiently.
-
-## Table of Contents
-
-1. [Introduction](#introduction)
-2. [Prerequisites](#prerequisites)
-3. [Installation](#installation)
-4. [Configuration](#configuration)
-5. [Adding Services](#adding-services)
-6. [Securing APIs](#securing-apis)
-7. [Monitoring and Logging](#monitoring-and-logging)
-8. [Scaling and Performance](#scaling-and-performance)
-9. [Troubleshooting](#troubleshooting)
-10. [Conclusion](#conclusion)
-11. [References](#references)
-
-## Introduction
-
-Kong API Gateway acts as a middleware between your clients and your upstream services, providing features such as load balancing, rate limiting, and authentication. This integration allows you to manage your API traffic efficiently, secure your endpoints, and monitor performance.
-
-## Prerequisites
-
-Before you begin, ensure you have the following:
-
-- Docker installed on your machine.
-- Basic knowledge of API concepts and Docker.
-- Access to your API services and routes.
-
-## Installation
-
-To set up Kong with Docker Compose, use the provided configuration file.
-
-## Configuration
-
-Here's the Docker Compose configuration to set up Kong API Gateway:
 
 ## Adding Code in Your Yaml File
 
