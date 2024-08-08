@@ -166,6 +166,7 @@ networks:
 secrets:
   kong_postgres_password:
     file: ./POSTGRES_PASSWORD
+```
 
 ## Configuration
 
