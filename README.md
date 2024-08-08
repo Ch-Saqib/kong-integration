@@ -30,7 +30,7 @@ Before you begin, ensure you have the following:
 
 ## Adding Code in Your Yaml File
 
-bash```
+```bash
 version: "3.1.0"
 
 x-kong-config: &kong-env
