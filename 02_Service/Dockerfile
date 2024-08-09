@@ -10,4 +10,4 @@ RUN poetry config virtualenvs.create false
 
 RUN poetry install --no-interaction --no-root
 
-CMD [ "poetry","run","uvicorn","02_service.main:app","--port","8002","--reload" ]
+CMD [ "poetry","run","uvicorn","02_service.main:app","--host","0.0.0.0","--port","8091","--reload" ]

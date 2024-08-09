@@ -249,3 +249,9 @@ Integrating Kong API Gateway into your infrastructure enhances your API manageme
 - [Kong Plugins](https://docs.konghq.com/hub/)
 
 Feel free to contribute to this repository or raise issues if you encounter any problems during the integration process.
+
+
+## HOW WE RUN THIS
+```bash
+docker compose --profile database up -d
+```
