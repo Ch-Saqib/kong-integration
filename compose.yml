@@ -6,28 +6,27 @@ x-kong-config: &kong-env
   KONG_PG_HOST: db
   KONG_PG_USER: ${KONG_PG_USER:-kong}
   KONG_PG_PASSWORD_FILE: /run/secrets/kong_postgres_password
-
+############-----API-------######################
 services:
   api1:
     container_name: API-1
     build:
-      context: ./01_Service
+      context: ./01_User
       dockerfile: Dockerfile
     ports:
       - 8090:8090
-
     volumes:
-      - ./01_Service:/app
+      - ./01_User:/app
 
   api2:
     container_name: API-2
     build:
-      context: ./02_Service
+      context: ./02_Product
       dockerfile: Dockerfile
     ports:
       - 8091:8091
     volumes:
-      - ./02_Service:/app
+      - ./02_Product:/app
   ######################################------KONG-INTEGRATION------#####################################################
   kong-migrations:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
