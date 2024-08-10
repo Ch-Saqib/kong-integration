@@ -39,29 +39,28 @@ x-kong-config: &kong-env
   KONG_PG_HOST: db
   KONG_PG_USER: ${KONG_PG_USER:-kong}
   KONG_PG_PASSWORD_FILE: /run/secrets/kong_postgres_password
-
+############-----API-------######################
 services:
-  ###############---API-1---###############
   api1:
     container_name: API-1
     build:
-      context: ./01_service
+      context: ./01_User
       dockerfile: Dockerfile
-    port:
-      - 8001:8001
+    ports:
+      - 8090:8090
     volumes:
-      - ./01_service:/app
- ###############---API-2---###############
-    api2:
-      container_name: API-2
-      build:
-        context: ./02_service
-        dockerfile: Dockerfile
-      port:
-        - 8002:8002
-      volumes:
-        - ./02_service:/app
-  ######################################------KONG-MIGRATION------#####################################################
+      - ./01_User:/app
+
+  api2:
+    container_name: API-2
+    build:
+      context: ./02_Product
+      dockerfile: Dockerfile
+    ports:
+      - 8091:8091
+    volumes:
+      - ./02_Product:/app
+  ######################################------KONG-INTEGRATION------#####################################################
   kong-migrations:
     image: "${KONG_DOCKER_TAG:-kong:latest}"
     command: kong migrations bootstrap
@@ -103,8 +102,15 @@ services:
     secrets:
       - kong_postgres_password
     ports:
+      # The following two environment variables default to an insecure value (0.0.0.0)
+      # according to the CIS Security test.
       - "${KONG_INBOUND_PROXY_LISTEN:-0.0.0.0}:8000:8000/tcp"
       - "${KONG_INBOUND_SSL_PROXY_LISTEN:-0.0.0.0}:8443:8443/tcp"
+      # Making them mandatory but undefined, like so would be backwards-breaking:
+      # - "${KONG_INBOUND_PROXY_LISTEN?Missing inbound proxy host}:8000:8000/tcp"
+      # - "${KONG_INBOUND_SSL_PROXY_LISTEN?Missing inbound proxy ssl host}:8443:8443/tcp"
+      # Alternative is deactivating check 5.13 in the security bench, if we consider Kong's own config to be enough security here
+
       - "127.0.0.1:8001:8001/tcp"
       - "127.0.0.1:8444:8444/tcp"
       - "127.0.0.1:8002:8002/tcp"
@@ -118,6 +124,7 @@ services:
     volumes:
       - kong_prefix_vol:${KONG_PREFIX:-/var/run/kong}
       - kong_tmp_vol:/tmp
+      # - ./config:/opt/kong
     security_opt:
       - no-new-privileges
   db:
@@ -166,6 +173,7 @@ networks:
 secrets:
   kong_postgres_password:
     file: ./POSTGRES_PASSWORD
+
 ```
 
 ## Configuration
